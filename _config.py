@@ -14,14 +14,18 @@
 # Basic Settings
 #  (almost all sites will want to configure these settings)
 ######################################################################
+
 ## site_url -- Your site's full URL
 # Your "site" is the same thing as your _site directory.
 #  If you're hosting a blogofile powered site as a subdirectory of a larger
 #  non-blogofile site, then you would set the site_url to the full URL
 #  including that subdirectory: "http://www.yoursite.com/path/to/blogofile-dir"
-site.url = "http://www.mmqc.org"
+site.url = "http://mmqc.org"
 
-#### Blog Settings ####
+####################
+# Blog Settings ####
+####################
+
 blog = controllers.blog
 
 ## blog_enabled -- Should the blog be enabled?
@@ -38,30 +42,49 @@ blog.path = "/blog"
 
 ## blog_name -- Your Blog's name.
 # This is used repeatedly in default blog templates
-blog.name = "MMQC"
+blog.name = "mmqc"
 
 ## blog_description -- A short one line description of the blog
 # used in the RSS/Atom feeds.
-blog.description = "MMQC blog"
+blog.description = "mmqc blog"
 
 ## blog_timezone -- the timezone that you normally write your blog posts from
 blog.timezone = "Europe/Amsterdam"
 
+#### disqus.com comment integration ####
+blog.disqus.enabled = True
+blog.disqus.name = "langner"
+
+### Syntax highlighter ###
+# You can change the style to any builtin Pygments style
+# or, make your own: http://pygments.org/docs/styles
+blog.filters.syntax_highlight.style = "fruity"
+blog.filters.syntax_highlight.css_dir = "/css"
+blog.filters.syntax_highlight.preload_styles = ["murphy","monokai","fruity"]
+
+#### Custom blog index ####
+# If you want to create your own index page at your blog root
+# turn this on. Otherwise blogofile assumes you want the
+# first X posts displayed instead
+blog.custom_index = False
+
+#Post excerpts
+#If you want to generate excerpts of your posts in addition to the
+#full post content turn this feature on
+post_excerpt_enabled = True
+post_excerpt_word_length = 25
+
+# blog posts per page
 blog.posts_per_page = 5
 
+# blog permalinks
 blog.auto_permalink.enabled = True
 blog.auto_permalink.path = ":blog_path/:year/:month/:day/:title"
 
-blog.disqus.enabled = False
-blog.disqus.disqus.name
-
-blog.custom_index = False
-
-blog.post_excerpts.enabled = True
-blog.post_excerpts.word_length = 25
-
+# pagination directory
 blog.pagination_dir = "page"
 
+# default filters
 blog.post_default_filters = {
     "markdown": "syntax_highlight, markdown",
     "textile": "syntax_highlight, textile",
@@ -70,3 +93,8 @@ blog.post_default_filters = {
     "html": "syntax_highlight"
 }
                     
+# similar posts
+blog.similar_posts.enabled = False
+blog.similar_posts.count = 3
+
+
