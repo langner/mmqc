@@ -19,7 +19,7 @@
 #  If you're hosting a blogofile powered site as a subdirectory of a larger
 #  non-blogofile site, then you would set the site_url to the full URL
 #  including that subdirectory: "http://www.yoursite.com/path/to/blogofile-dir"
-site.url = "http://www.yoursite.com"
+site.url = "http://www.mmqc.org"
 
 #### Blog Settings ####
 blog = controllers.blog
@@ -38,11 +38,35 @@ blog.path = "/blog"
 
 ## blog_name -- Your Blog's name.
 # This is used repeatedly in default blog templates
-blog.name = "Your Blog's Name"
+blog.name = "MMQC"
 
 ## blog_description -- A short one line description of the blog
 # used in the RSS/Atom feeds.
-blog.description = "Your Blog's short description"
+blog.description = "MMQC blog"
 
 ## blog_timezone -- the timezone that you normally write your blog posts from
-blog.timezone = "US/Eastern"
+blog.timezone = "Europe/Amsterdam"
+
+blog.posts_per_page = 5
+
+blog.auto_permalink.enabled = True
+blog.auto_permalink.path = ":blog_path/:year/:month/:day/:title"
+
+blog.disqus.enabled = False
+blog.disqus.disqus.name
+
+blog.custom_index = False
+
+blog.post_excerpts.enabled = True
+blog.post_excerpts.word_length = 25
+
+blog.pagination_dir = "page"
+
+blog.post_default_filters = {
+    "markdown": "syntax_highlight, markdown",
+    "textile": "syntax_highlight, textile",
+    "org": "syntax_highlight, org",
+    "rst": "syntax_highlight, rst",
+    "html": "syntax_highlight"
+}
+                    
