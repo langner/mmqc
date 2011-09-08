@@ -1,7 +1,16 @@
 ---
 categories: cclib
-date: 2011/08/29 11:47:00
+date: 2011/08/29 11:47:08
 title: cclib in Debian
 ---
-...
----
+
+The development of [cclib](http://cclib.sourceforge.net "cclib website"), a Python library for parsing computational chemistry output files, has been sporadic at best. Nonetheless, after a few years the version number is above 1.0, the interface is quite stable and most of the commits now are bugfixes. More importantly, it seems we have acquired quite a bit of users, especially via [GaussSum](http://gausssum.sourceforge.net/ "GaussSum") and [QMForge](http://qmforge.sourceforge.net/ QMForge), which are basically graphical user interfaces for cclib. This year I decided it is time to finally introduce cclib into [Debian](http://www.debian.org "Debian"), my Linux distribution of choice. The [debichem packaging group](http://debichem.alioth.debian.org/ "Debichem") was a good place to start, very helpful in getting the job done successfully.
+
+
+So, I'm happy to report that Debian users (of the current testing distribution, aka *wheezy*) can install cclib even easier than before, by typing one command at the terminal:
+
+    aptitude install cclib
+
+or via their favorite software package manager. This actually installs two packages, [python-cclib](http://packages.debian.org/wheezy/python-cclib "python-cclib in wheezy") containing the core Python module, and [cclib](http://packages.debian.org/wheezy/cclib "cclib in wheezy") which carries the user scripts.
+
+If you are interested in the logfiles distributed with cclib and the accompanying unittests, you will need to install [cclib-data](http://packages.debian.org/wheezy/cclib-data "cclib-data in wheezy") from the non-free repository. This is due to copyright issues, since the log files created by many computational chemistry programs are not free to use and distribute under all conditions (see [debichem-devel mailing list from July 2011](http://lists.alioth.debian.org/pipermail/debichem-devel/2011-July/thread.html "debichem-devel July 2011") for the discussion).
