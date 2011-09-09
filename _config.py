@@ -46,7 +46,7 @@ blog.name = "mmqc"
 
 ## blog_description -- A short one line description of the blog
 # used in the RSS/Atom feeds.
-blog.description = "mmqc blog"
+blog.description = "Perambulations of a physicist"
 
 ## blog_timezone -- the timezone that you normally write your blog posts from
 blog.timezone = "Europe/Amsterdam"
@@ -60,7 +60,7 @@ blog.disqus.name = "langner"
 # or, make your own: http://pygments.org/docs/styles
 blog.filters.syntax_highlight.style = "fruity"
 blog.filters.syntax_highlight.css_dir = "/css"
-blog.filters.syntax_highlight.preload_styles = ["murphy","monokai","fruity"]
+blog.filters.syntax_highlight.preload_styles = ["murphy", "monokai", "fruity"]
 
 #### Custom blog index ####
 # If you want to create your own index page at your blog root
@@ -72,7 +72,7 @@ blog.custom_index = False
 #If you want to generate excerpts of your posts in addition to the
 #full post content turn this feature on
 post_excerpt_enabled = True
-post_excerpt_word_length = 25
+post_excerpt_word_length = 44
 
 # blog posts per page
 blog.posts_per_page = 5
@@ -94,7 +94,7 @@ blog.post_default_filters = {
 }
                     
 # similar posts
-blog.similar_posts.enabled = False
-blog.similar_posts.count = 3
+blog.similar_posts.enabled = True
+blog.similar_posts.count = 5
 
 
