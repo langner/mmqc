@@ -1,0 +1,14 @@
+---
+draft: true
+categories: python, numpy, optimization, algebra
+title: Optimizing vector norms
+---
+
+python numyp vector norm timigs
+                #drs = (coordinates.take(npi1, axis=0) - coordinates.take(npi2, axis=0)) % 32.0
+                #radials = numpy.array([numpy.linalg.norm(dr) for dr in drs])
+                #radials = numpy.array([numpy.sqrt(dr[0]*dr[0] + dr[1]*dr[1]) for dr in drs])
+                #radials = numpy.array([numpy.sqrt(numpy.dot(dr,dr)) for dr in drs])
+                #radials = numpy.sqrt(numpy.array([numpy.dot(dr,dr) for dr in drs]))
+                #radials = numpy.sqrt((drs*drs).sum(axis=1))
+                #radialdists.extend(numpy.sqrt((drs*drs).sum(axis=1)))
