@@ -1,5 +1,5 @@
 .pygments_fruity .hll { background-color: #333333 }
-.pygments_fruity  { background: #111111; color: #ffffff }
+.pygments_fruity  { background: #111111; color: #ffffff padding: 10px 0px 10px 20px; line-height: 18px; }
 .pygments_fruity .c { color: #008800; font-style: italic;  } /* Comment */
 .pygments_fruity .err { color: #ffffff } /* Error */
 .pygments_fruity .g { color: #ffffff } /* Generic */

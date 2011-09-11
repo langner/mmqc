@@ -1,5 +1,5 @@
 .pygments_murphy .hll { background-color: #ffffcc }
-.pygments_murphy  { background: #ffffff; }
+.pygments_murphy  { background: #ffffff; padding: 10px 0px 10px 20px; line-height: 18px; }
 .pygments_murphy .c { color: #606060; font-style: italic } /* Comment */
 .pygments_murphy .err { color: #F00000; background-color: #F0A0A0 } /* Error */
 .pygments_murphy .k { color: #208090; font-weight: bold } /* Keyword */
