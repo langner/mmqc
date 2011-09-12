@@ -72,7 +72,7 @@ blog.custom_index = False
 #If you want to generate excerpts of your posts in addition to the
 #full post content turn this feature on
 blog.post_excerpts.enabled = True
-blog.post_excerpts.word_length = 25
+blog.post_excerpts.word_length = 30
 
 # blog posts per page
 blog.posts_per_page = 5
