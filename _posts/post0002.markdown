@@ -1,7 +1,10 @@
 ---
-draft: true
+title: Optimizing vector norms in Python
+author: Karol M. Langner
 categories: python, numpy, optimization, algebra
-title: Optimizing vector norms
+date: 2011/09/01 13:40:32
+updated: 2011/09/11 22:04:46
+draft: true
 ---
 
 python numyp vector norm timigs
