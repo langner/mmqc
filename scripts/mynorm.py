@@ -29,11 +29,11 @@ if __name__ == "__main__":
     print "A single vector v:"
     print v
 
-    number = 50000
+    number = 5000000
     for i,mynorm in enumerate(mynorms):
         code = inspect.getsource(mynorm).split(":")[1].strip()
         name = "mynorm%i" %(i+1)
-        setup = "from __main__ import dot,sqrt,norm,sum"
+        setup = "from __main__ import dot,sqrt,norm,sum,v"
         tim = timeit.timeit(code, setup, number=number)
         print "%s: %.6f time: %.3f code: %s" %(name, mynorm(v), tim, code)
 
@@ -41,12 +41,10 @@ if __name__ == "__main__":
     print "\nAn array of 1000 vectors:"
     print V
 
-    number = 50
+    number = 5000
     for i,myNorm in enumerate(myNorms):
         code = inspect.getsource(myNorm).split(":")[1].strip()
         name = "myNorm%i" %(i+1)
         setup = "from __main__ import dot,sqrt,norm,sum,V"
         tim = timeit.timeit(code, setup, number=number)
         print "%s: %.6f time: %.3f code: %s" %(name, myNorm(V)[0], tim, code)
-    
-    print pdist(V,V)[0]
