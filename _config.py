@@ -79,7 +79,7 @@ blog.posts_per_page = 5
 
 # blog permalinks
 blog.auto_permalink.enabled = True
-blog.auto_permalink.path = ":blog_path/:year/:month/:day/:title"
+blog.auto_permalink.path = ":blog_path/:year/:title"
 
 # pagination directory
 blog.pagination_dir = "page"
