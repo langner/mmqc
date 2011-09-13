@@ -1,50 +1,44 @@
 import inspect
 import timeit
 
-from numpy import dot, sqrt, sum
-from numpy.linalg import norm
-from numpy.random import random
-from scipy.spatial.distance import pdist
+import numpy as np
 
 
-# Test functions for norm of a single vector.
-mynorm1 = lambda v: norm(v)
-mynorm2 = lambda v: sqrt(sum(dot(v,v)))
-mynorm3 = lambda v: sqrt(sum(v*v))
-mynorm4 = lambda v: sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2])
-mynorms = [mynorm1, mynorm2, mynorm3, mynorm4]
+v = np.random.random((3,))
+print "A single vector:\n", v
 
-# Test functions for lists of vectors.
-myNorm1 = lambda V: [norm(v) for v in V]
-myNorm2 = lambda V: [sqrt(sum(v*v)) for v in V]
-myNorm3 = lambda V: sqrt([sum(v*v) for v in V])
-myNorm4 = lambda V: sqrt([v[0]*v[0] + v[1]*v[1] + v[2]*v[2] for v in V])
-myNorm5 = lambda V: sqrt((V*V).sum(axis=1))
-myNorms = [myNorm1, myNorm2, myNorm3, myNorm4, myNorm5]
+def timenorm(norm, number):
+    name = inspect.getsource(norm).split("=")[0].strip()
+    code = inspect.getsource(norm).split(":")[1].strip()
+    setup = "from __main__ import np,v"
+    tim = timeit.timeit(code, setup, number=number)
+    value = eval("%s(v)" %name)
+    print "%s: %.6f time: %.3f code: %s" %(name, value, tim, code)
 
+mynorm1 = lambda v: np.linalg.norm(v)
+mynorm2 = lambda v: np.sqrt(np.sum(np.dot(v,v)))
+mynorm3 = lambda v: np.sqrt(np.sum(v*v))
+mynorm4 = lambda v: np.sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2])
 
-if __name__ == "__main__":
+for mynorm in mynorm1, mynorm2, mynorm3, mynorm4:
+    timenorm(mynorm, 5*10**6)
 
-    v = random((3,))
-    print "A single vector v:"
-    print v
+V = np.random.random((1000,3))
+print "An array of vectors:\n", V
 
-    number = 5000000
-    for i,mynorm in enumerate(mynorms):
-        code = inspect.getsource(mynorm).split(":")[1].strip()
-        name = "mynorm%i" %(i+1)
-        setup = "from __main__ import dot,sqrt,norm,sum,v"
-        tim = timeit.timeit(code, setup, number=number)
-        print "%s: %.6f time: %.3f code: %s" %(name, mynorm(v), tim, code)
+def timenorms(norm, number):
+    name = inspect.getsource(norm).split("=")[0].strip()
+    code = inspect.getsource(norm).split(":")[1].strip()
+    setup = "from __main__ import np,V"
+    tim = timeit.timeit(code, setup, number=number)
+    value = eval("%s(V)" %name)[0]
+    print "%s: %.6f time: %.3f code: %s" %(name, value, tim, code)
 
-    V = random((1000,3))
-    print "\nAn array of 1000 vectors:"
-    print V
+mynorms1 = lambda V: [np.linalg.norm(v) for v in V]
+mynorms2 = lambda V: [np.sqrt(sum(v*v)) for v in V]
+mynorms3 = lambda V: np.sqrt([sum(v*v) for v in V])
+mynorms4 = lambda V: np.sqrt([v[0]*v[0] + v[1]*v[1] + v[2]*v[2] for v in V])
+mynorms5 = lambda V: np.sqrt((V*V).sum(axis=1))
 
-    number = 5000
-    for i,myNorm in enumerate(myNorms):
-        code = inspect.getsource(myNorm).split(":")[1].strip()
-        name = "myNorm%i" %(i+1)
-        setup = "from __main__ import dot,sqrt,norm,sum,V"
-        tim = timeit.timeit(code, setup, number=number)
-        print "%s: %.6f time: %.3f code: %s" %(name, myNorm(V)[0], tim, code)
+for mynorms in mynorms1, mynorms2, mynorms3, mynorms4, mynorms5:
+    timenorms(mynorms, 5*10**6/len(V))

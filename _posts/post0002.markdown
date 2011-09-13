@@ -1,17 +1,103 @@
 ---
-title: Optimizing vector norms in Python
+title: A NumPy excercise in optimization
 author: Karol M. Langner
 categories: python, numpy, optimization, algebra
 date: 2011/09/01 13:40:32
-updated: 2011/09/11 22:04:46
-draft: true
+updated: 2011/09/13 10:14:46
+attachment: mynorm.py
 ---
 
-python numyp vector norm timigs
-                #drs = (coordinates.take(npi1, axis=0) - coordinates.take(npi2, axis=0)) % 32.0
-                #radials = numpy.array([numpy.linalg.norm(dr) for dr in drs])
-                #radials = numpy.array([numpy.sqrt(dr[0]*dr[0] + dr[1]*dr[1]) for dr in drs])
-                #radials = numpy.array([numpy.sqrt(numpy.dot(dr,dr)) for dr in drs])
-                #radials = numpy.sqrt(numpy.array([numpy.dot(dr,dr) for dr in drs]))
-                #radials = numpy.sqrt((drs*drs).sum(axis=1))
-                #radialdists.extend(numpy.sqrt((drs*drs).sum(axis=1)))
+This will be a simple excercise I did a long time ago in speeding up a single operation repeated many times, namely the Euclidean [vector norm](http://en.wikipedia.org/wiki/Norm_%28mathematics%29 "Wikipedia: Norm (mathematics)"). It can become quite a bottleneck if done wrong, especially if you deal with millions of vectors in a Python script written quick and dirty.
+
+There are tools for speeding up Python with C, such as [weave](http://wiki.python.org/moin/weave "weave website") and [Cython](http://cython.org/ "Cython wesbite"), or with Fortan (see [f2py](http://www.scipy.org/F2py f2py "webste")). But the whole point in quick and dirty solutions is to stay away from them, since writing pure Python is simpler. The first thing to do is to use [NumPy](http://numpy.scipy.org/ "NumPy website") effectively, and that is what this note is about.
+
+## A single vector
+
+A random vector, a one dimensional ``numpy.ndarray`` object with three random elements:
+$$code(lang=python)
+>>> import numpy as np
+>>> v = np.random.random((3,))
+>>> print v
+[ 0.21683143  0.47678871  0.48953654]
+$$/code
+
+We will need to compare different ways of computing the norm. I will define [lambda functions](http://docs.python.org/reference/expressions.html#lambda "lambdas in the docs"), which can be inspected and timed like this:
+$$code(lang=python)
+>>> import inspect
+>>> import timeit
+>>> def timenorm(norm, number):
+...     name = inspect.getsource(norm).split("=")[0].strip()
+...     code = inspect.getsource(norm).split(":")[1].strip()
+...     setup = "from __main__ import np,v"
+...     tim = timeit.timeit(code, setup, number=number)
+...     value = eval("%s(v)" %name)
+...     print "%s: %.6f time: %.3f code: %s" %(name, value, tim, code)
+$$/code
+This timing function will print the value of the norm (a sanity check), the time it took for *number* of repetitions, and the code actually executed.
+
+The first thing to try is the norm provided with numpy.linalg:
+$$code(lang=python)
+>>> mynorm1 = lambda v: np.linalg.norm(v)
+>>> timenorm(mynorm, 5*10**6)
+mynorm1: 1.144364 time: 51.915 code: np.linalg.norm(v)
+$$/code
+
+But [numpy.linalg does a number of things we don't need](https://github.com/numpy/numpy/blob/master/numpy/linalg/linalg.py#L1928 "numpy.linalg.norm source code"), so let's try a few other versions:
+$$code(lang=python)
+>>> mynorm2 = lambda v: np.sqrt(np.sum(np.dot(v,v)))
+>>> mynorm3 = lambda v: np.sqrt(np.sum(v*v))
+>>> mynorm4 = lambda v: np.sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2])
+>>> for mynorm in mynorm1, mynorm2, mynorm3, mynorm4:
+...     timenorm(mynorm, 5*10**6)
+mynorm1: 0.716931 time: 52.390 code: np.linalg.norm(v)
+mynorm2: 0.716931 time: 48.008 code: np.sqrt(np.sum(np.dot(v,v)))
+mynorm3: 0.716931 time: 46.823 code: np.sqrt(np.sum(v*v))
+mynorm4: 0.716931 time: 21.482 code: np.sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2])
+$$/code
+
+It seems that the explicit version, without the additional function calls, is somewhat quicker if you have a single vector, although it will not support vectors of arbitrary length. Reasonable, but meaningless since in all cases we are dealing with microseconds per function call.
+
+## Vectorize!
+
+The whole point of NumPy is to get rid of loops by vectorizing, and in practice one typically deals with large sets of different vectors. So it would make more sense to benchmark on an array of vectors:
+$$code(lang=python)
+>>> V = np.random.random((1000,3))
+>>> print V
+[[ 0.73755195  0.78344111  0.02725284]
+ [ 0.49455093  0.08837641  0.78106238]
+ [ 0.97095203  0.64497806  0.53856876]
+ ..., 
+ [ 0.67676871  0.41127143  0.89213647]
+ [ 0.50376334  0.01370871  0.35758737]
+ [ 0.05427026  0.42527007  0.88730196]]
+$$/code
+
+Here are `mynorm1` and `mynorm3` translated into list comprehensions:
+$$code(lang=python)
+>>> mynorms1 = lambda V: [np.linalg.norm(v) for v in V]
+>>> mynorms2 = lambda V: [np.sqrt(sum(v*v)) for v in V]
+$$/code
+
+In the second case it will be more efficient to take the square root for the whole resulting array at once. Here is that modification, and a similar one for `mynorm4`:
+$$code(lang=python)
+>>> mynorms3 = lambda V: np.sqrt([sum(v*v) for v in V])
+>>> mynorms4 = lambda V: np.sqrt([v[0]*v[0] + v[1]*v[1] + v[2]*v[2] for v in V])
+$$/code
+
+And finally, a compact version that sticks with arrays all the way:
+$$code(lang=python)
+mynorms5 = lambda V: np.sqrt((V*V).sum(axis=1))
+$$/code
+
+Now a comparison (`timenorms` is available in [the attached script](/scripts/mynorm.py "mynorm.py")):
+$$code(lang=python)
+>>> for mynorms in mynorms1, mynorms2, mynorms3, mynorms4, mynorms5:
+...     timenorm(mynorms, 5*10**6/len(V))
+mynorms1: 1.076339 time: 52.706 code: [np.linalg.norm(v) for v in V]
+mynorms2: 1.076339 time: 45.342 code: [np.sqrt(sum(v*v)) for v in V]
+mynorms3: 1.076339 time: 33.971 code: np.sqrt([sum(v*v) for v in V])
+mynorms4: 1.076339 time: 13.125 code: np.sqrt([v[0]*v[0] + v[1]*v[1] + v[2]*v[2] for v in V])
+mynorms5: 1.076339 time: 0.212 code: np.sqrt((V*V).sum(axis=1))
+$$/code
+
+The speedup `mynorms5` provides here will be even larger if we put all five million vectors into a single array. Of course, compiled C will be even faster, but this is more than enough for most of my quick and dirty scripts.
