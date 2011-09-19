@@ -22,6 +22,9 @@
 #  including that subdirectory: "http://www.yoursite.com/path/to/blogofile-dir"
 site.url = "http://mmqc.org"
 
+# ignored paths
+site.file_ignore_patterns += [ ".*/README.*" ]
+
 ####################
 # Blog Settings ####
 ####################
