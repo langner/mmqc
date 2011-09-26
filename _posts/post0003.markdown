@@ -1,10 +1,14 @@
 ---
-title: What is this?
+title: Is this a blog?
 author: Karol M. Langner
 categories: website
 date: 2011/09/11 22:15:16
-updated: 2011/09/12 09:04:05
+updated: 2011/09/19 09:04:05
 draft: true
 ---
 
-So what is this? 
+Yes and no. For a long time I've had an urge to blog. I follow quite a few -- most are concerned with science and research, or with computing or programming. I also regularly stumble upon technical information on blogs that helps me in my work, so I definitely think its a helpful habit. In a way, this is about me giving back to that community, but also about organizing my own technical notes written down in various places. Yes, I will call them *notes*, not posts.
+
+Another 
+
+However, dynamic 
