@@ -3,12 +3,12 @@ title: Is this a blog?
 author: Karol M. Langner
 categories: website
 date: 2011/09/11 22:15:16
-updated: 2011/09/19 09:04:05
-draft: true
+updated: 2011/10/05 20:49:05
 ---
 
-Yes and no. For a long time I've had an urge to blog. I follow quite a few -- most are concerned with science and research, or with computing or programming. I also regularly stumble upon technical information on blogs that helps me in my work, so I definitely think its a helpful habit. In a way, this is about me giving back to that community, but also about organizing my own technical notes written down in various places. Yes, I will call them *notes*, not posts.
+Yes and no. For some time I've had an urge to blog. I follow quite a few and most are concerned with science and research, or with computing and programming. Regularly I stumble upon technical information on blogs that I find helpful in my work. In a way, this website is about me giving back to that community. It's also about organizing the various technical notes I've put down in many places.
 
-Another 
+Strictly speaking I will retain the core features of a blog, namely reverse-chronological order and some form of commenting. The infrastructure, however, is based on [Blogofile](http://www.blogofile.com), which is a static website compiler written in Python, and the ubiquitous [git revision control system](http://git-scm.com). In fact, I've decided to version control the whole source code for the website and [to publish it openly on github](https://github.com/langner/mmqc).
 
-However, dynamic 
+I will refer to the things I write here as *notes*, and not posts as in typical blogs, because most will be technical, and short, and they will probably be published irregularly. Also, I reserve the right to go back and update, change, correct and extend notes in the future. But since the source is versioned, it is also possible to go back in time if needed.
+
