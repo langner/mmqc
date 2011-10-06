@@ -1,5 +1,5 @@
 ---
-title: A NumPy excercise in optimization
+title: A NumPy exercise in optimization
 author: Karol M. Langner
 categories: python, numpy, optimization, algebra
 date: 2011/09/01 13:40:32
@@ -7,9 +7,9 @@ updated: 2011/09/13 10:14:46
 attachment: mynorm.py
 ---
 
-This will be a simple excercise I did a long time ago in speeding up a single operation repeated many times, namely the Euclidean [vector norm](http://en.wikipedia.org/wiki/Norm_%28mathematics%29 "Wikipedia: Norm (mathematics)"). It can become quite a bottleneck if done wrong, especially if you deal with millions of vectors in a Python script written quick and dirty.
+This will be a simple exercise I did a long time ago in speeding up a single operation repeated many times, namely the Euclidean [vector norm](http://en.wikipedia.org/wiki/Norm_%28mathematics%29 "Wikipedia: Norm (mathematics)"). It can become quite a bottleneck if done wrong, especially if you deal with millions of vectors in a Python script written quick and dirty.
 
-There are tools for speeding up Python with C, such as [weave](http://wiki.python.org/moin/weave "weave website") and [Cython](http://cython.org/ "Cython wesbite"), or with Fortan (see [f2py](http://www.scipy.org/F2py f2py "webste")). But the whole point in quick and dirty solutions is to stay away from them, since writing pure Python is simpler. The first thing to do is to use [NumPy](http://numpy.scipy.org/ "NumPy website") effectively, and that is what this note is about.
+There are tools for speeding up Python with C, such as [weave](http://wiki.python.org/moin/weave "weave website") and [Cython](http://cython.org/ "Cython website"), or with Fortran (see [f2py](http://www.scipy.org/F2py "f2py website")). But the whole point in quick and dirty solutions is to stay away from them, since writing pure Python is simpler. The first thing to do is to use [NumPy](http://numpy.scipy.org/ "NumPy website") effectively, and that is what this note is about.
 
 ## A single vector
 
