@@ -10,5 +10,5 @@ Yes and no. For some time I've had an urge to blog. I follow quite a few and mos
 
 Strictly speaking I will retain the core features of a blog, namely reverse-chronological order and some form of commenting. The infrastructure, however, is based on [Blogofile](http://www.blogofile.com), which is a static website compiler written in Python, and the ubiquitous [git revision control system](http://git-scm.com). In fact, I've decided to version control the whole source code for the website and [to publish it openly on github](https://github.com/langner/mmqc).
 
-I will refer to the things I write here as *notes*, and not posts as in typical blogs, because most will be technical, and short, and they will probably be published irregularly. Also, I reserve the right to go back and update, change, correct and extend notes in the future. But since the source is versioned, it is also possible to go back in time if needed.
+I will refer to the things I write here as *notes*, and not posts as in typical blogs, because most will be technical and short, and they will probably be published irregularly. Also, I might go back and update, change, correct and extend notes in the future. But since the source is versioned, it is also possible to go back in time if needed.
 
